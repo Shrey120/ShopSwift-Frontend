@@ -8,7 +8,7 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
 
-  const { userSetter, signup, loading } = useAppContext();
+  const { userSetter, signup, loading, clearCart } = useAppContext();
 
   useEffect(() => {
     const rememberedUser = localStorage.getItem("rememberedUser");
@@ -19,6 +19,7 @@ export default function Signup() {
       setRememberMe(true);
     }
     userSetter();
+    clearCart();
   }, []); // This empty dependency array ensures the effect runs only once
 
   useEffect(() => {

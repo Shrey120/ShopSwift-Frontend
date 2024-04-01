@@ -16,13 +16,13 @@ export default function FeaturedProducts() {
             product.map((ele) => {
               if (ele.featured === true) {
                 return (
-                  <NavLink to={`/products/${ele.id}`}>
-                    <div key={ele.id}>
+                  <NavLink to={`/products/${ele._id}`}>
+                    <div key={ele._id}>
                       <div className="single-product-box">
                         <div>
                           <img
                             className="img-box img-featured"
-                            src={ele.image}
+                            src={ele.image[0].url}
                             alt="Image"
                           />
                         </div>

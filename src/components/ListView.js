@@ -4,19 +4,20 @@ import { NavLink } from "react-router-dom";
 
 export default function ListView() {
   const { filteredItems, formatCurrency } = useAppContext();
+  console.log(filteredItems);
   return (
     <>
       <div className="list-main-product-box ">
         {filteredItems &&
           filteredItems.map((ele) => {
             return (
-              <NavLink to={`/products/${ele.id}`}>
-                <div key={ele.id}>
+              <NavLink to={`/products/${ele._id}`}>
+                <div key={ele._id}>
                   <div className="list-single-product-box">
                     <div>
                       <img
                         className="list-img-box"
-                        src={ele.image}
+                        src={ele.image[0].url}
                         alt="Image"
                       />
                     </div>
@@ -26,7 +27,7 @@ export default function ListView() {
                         {formatCurrency(ele.price)}
                       </div>
                       <div>{ele.description.slice(0, 150)} ....</div>
-                      <NavLink to={`/products/${ele.id}`}>
+                      <NavLink to={`/products/${ele._id}`}>
                         <button className="hireme-btn">Read More</button>
                       </NavLink>
                     </div>

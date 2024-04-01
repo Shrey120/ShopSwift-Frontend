@@ -554,10 +554,11 @@ a {
 }
 
 .main-product-box-featured {
-    border-radius: 20px;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(150px, 400px));
+
+    display: flex;
     gap: 50px;
+    width: 1300px;
+    overflow-x: auto;
 
 }
 
@@ -1074,4 +1075,115 @@ hr {
     border-radius: 5px;
     max-width: 400px;
     height: 300px;
+}
+
+/* Admin pages */
+
+.admin-main-page {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    margin: 50px 100px 0 100px;
+}
+
+
+.admin-pages-list {
+    background-color: whitesmoke;
+    border-radius: 10px;
+    display: flex;
+}
+
+.admin-pages {
+    font-size: x-large;
+    display: flex;
+    margin: 20px 70px;
+    color: black;
+    font-weight: 900;
+}
+
+
+.admin-pages-icon {
+    color: rgb(151, 149, 149);
+}
+
+.scrollable {
+    height: 600px;
+    margin: 0 100px;
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: black;
+    border-radius: 10px;
+}
+
+.scrollable:hover {
+    overflow-y: auto;
+}
+
+thead th {
+    position: sticky;
+    top: 0;
+}
+
+.user-data {
+    background-color: whitesmoke;
+    width: 100%;
+}
+
+.bold {
+    font-size: larger;
+    font-weight: 900;
+    background-color: rgb(0, 0, 0);
+    color: whitesmoke;
+    padding: 10px;
+}
+
+.style-admin {
+    padding: 10px;
+    text-align: center;
+    font-weight: bolder;
+    text-transform: capitalize;
+}
+
+.admin-btn {
+    font-size: 20px;
+    padding: 5px 2px 2px 2px;
+    border: 0cap;
+    border-radius: 200px;
+    width: 80%;
+}
+
+.update {
+    background-color: rgb(255, 255, 87);
+}
+
+.delete {
+    background-color: rgb(244, 166, 166);
+    color: rgb(212, 0, 0);
+}
+
+tbody tr:nth-child(even) {
+    background-color: #0000000b;
+}
+
+/* updating user */
+
+.update-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Admin product */
+
+.admin-cart-image {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 100%;
 }

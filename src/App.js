@@ -1,5 +1,5 @@
-import React, { useEffect, useReducer, useState } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Routes, Route, useNavigate, Outlet } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
@@ -18,8 +18,15 @@ import { toast } from "react-toastify";
 import { AppContext } from "./context/AppContext";
 import Signup from "./pages/SignUp";
 import ProtectedRoute from "./utils/ProtectedRoute";
+import AdminRoute from "./utils/AdminRoute";
 import Orders from "./pages/Orders";
 import UserDetails from "./components/UserDetails";
+import Admin from "./pages/Admin";
+import AdminUsers from "./components/AdminUsers";
+import { AdminServices } from "./components/AdminServices";
+import AdminUpdate from "./components/AdminUpdate";
+import AdminProduct from "./components/AdminProduct";
+import AdminUpdateProduct from "./components/AdminUpdateProduct";
 
 const getLocalCartData = () => {
   let localCartData = localStorage.getItem("CartItems");
@@ -42,13 +49,13 @@ function App() {
   // const [state, dispatch] = useReducer(reducerFun,initialState);
   const navigator = useNavigate();
 
-  const baseUrl = "https://shopswift-backend.onrender.com/";
+  const baseUrl = "http://localhost:4000/";
   // autherization
   const [user, setUser] = useState(getLocalUser);
   const [loading, setLoading] = useState(false);
   // product display
-  const [singleProduct, setSingleProduct] = useState(null);
   const [product, setProduct] = useState(null);
+
   // No. of cart Items
   const [cartValue, setCartValue] = useState(1);
   const [totalCartValue, setTotalCartValue] = useState(0);
@@ -71,6 +78,9 @@ function App() {
   const [cartQuantity, setCartQuantity] = useState(0);
   // Orders
   const [orders, setOrders] = useState([]);
+  // Admin
+  const [allUsers, setAllUsers] = useState([]);
+
   useEffect(() => {
     localStorage.setItem("CartItems", JSON.stringify(cartItems));
     setTotalPriceQunat();
@@ -182,14 +192,6 @@ function App() {
       });
   };
 
-  //function to show single product
-  const URL = baseUrl + "products/";
-  const showSingleProduct = (id) => {
-    fetch(`${URL}${id}`)
-      .then((res) => res.json())
-      .then((data) => setSingleProduct(data.product));
-  };
-
   // Stripe Payment
   const onCheckOut = async (e) => {
     e.preventDefault();
@@ -259,6 +261,109 @@ function App() {
       });
   };
 
+  // Admin route
+  const showData = async () => {
+    try {
+      const response = await fetch(baseUrl + "admin/users", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: user.token,
+        },
+      });
+      const data = await response.json();
+      if (data.success) {
+        setAllUsers(data.users);
+      } else {
+        setAllUsers([]);
+        showAlert(data.message, true);
+      }
+    } catch (error) {
+      console.log(error);
+      showAlert("Failed to fetch Users ", true);
+    }
+  };
+
+  // Deleting user
+  const deleteUrl = baseUrl + "admin/users/delete/";
+  const deleteUserHandler = async (id) => {
+    try {
+      const response = await fetch(`${deleteUrl}${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: user.token,
+        },
+      });
+      const data = await response.json();
+      if (data.success) {
+        showAlert(data.message, false);
+        showData();
+      }
+    } catch (error) {
+      showAlert(error);
+    }
+  };
+
+  // Updating User
+  const updateUrl = baseUrl + "admin/users/update/";
+  const updateHandler = async (id, body) => {
+    try {
+      const response = await fetch(`${updateUrl}${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: user.token,
+        },
+        body: JSON.stringify(body),
+      });
+      const data = await response.json();
+      if (data.success) {
+        showAlert(data.message, false);
+      }
+    } catch (error) {
+      showAlert(error);
+    }
+  };
+
+  // Deleting Products
+  const deletePUrl = baseUrl + "admin/products/delete/";
+  const deleteProductHandler = async (id) => {
+    try {
+      const response = await fetch(`${deletePUrl}${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: user.token,
+        },
+      });
+      const data = await response.json();
+      if (data.success) {
+        showAlert(data.message, false);
+        showProducts();
+      }
+    } catch (error) {
+      showAlert(error);
+    }
+  };
+  // Update Product
+  const updateProductUrl = baseUrl + "admin/products/update/";
+  const updateProductHandler = async (id, body) => {
+    try {
+      const response = await fetch(`${updateProductUrl}${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: user.token,
+        },
+        body: JSON.stringify(body),
+      });
+      const data = await response.json();
+      if (data.success) {
+        showAlert(data.message, false);
+      }
+    } catch (error) {
+      showAlert(error);
+    }
+  };
   // UserChange
   const userSetter = () => {
     setUser(null);
@@ -547,8 +652,6 @@ function App() {
         product,
         showProducts,
         formatCurrency,
-        showSingleProduct,
-        singleProduct,
         increament,
         decreament,
         cartValue,
@@ -588,6 +691,12 @@ function App() {
         fetchOrders,
         orders,
         contact,
+        showData,
+        allUsers,
+        deleteUserHandler,
+        updateHandler,
+        deleteProductHandler,
+        updateProductHandler,
       }}>
       <ToastContainer />
       <Header />
@@ -649,6 +758,54 @@ function App() {
           path="/signup"
           element={<Signup />}
         />
+        <Route
+          path="/admin"
+          element={
+            <AdminRoute>
+              <Admin />
+            </AdminRoute>
+          }>
+          <Route
+            path="users"
+            element={
+              <AdminRoute>
+                <AdminUsers />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="users/updateUser/:id"
+            element={
+              <AdminRoute>
+                <AdminUpdate />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="products"
+            element={
+              <AdminRoute>
+                <AdminProduct />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="products/update/:id"
+            element={
+              <AdminRoute>
+                <AdminUpdateProduct />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="services"
+            element={
+              <AdminRoute>
+                <AdminServices />
+              </AdminRoute>
+            }
+          />
+        </Route>
       </Routes>
       <Footer />
     </AppContext.Provider>

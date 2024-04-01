@@ -10,8 +10,7 @@ import Colors from "../components/Colors";
 function SingleProduct() {
   const { id } = useParams();
   const {
-    singleProduct,
-    showSingleProduct,
+    product,
     formatCurrency,
     cartValueToZero,
     increament,
@@ -21,15 +20,14 @@ function SingleProduct() {
   } = useAppContext();
 
   useEffect(() => {
-    showSingleProduct(id);
     cartValueToZero();
     showProducts();
   }, []);
   return (
     <>
-      {singleProduct &&
-        singleProduct.map((ele) => {
-          if (ele.id === id) {
+      {product &&
+        product.map((ele) => {
+          if (ele._id === id) {
             return (
               <div
                 key={ele.id}

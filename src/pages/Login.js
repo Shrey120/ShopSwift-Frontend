@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useAppContext } from "../context/AppContext";
 
 export default function Login() {
-  const { login, loading } = useAppContext();
+  const { login, loading, clearCart } = useAppContext();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,6 +30,7 @@ export default function Login() {
   };
 
   useEffect(() => {
+    clearCart();
     const rememberedUser = localStorage.getItem("rememberedUser");
     if (rememberedUser) {
       const userData = JSON.parse(rememberedUser);

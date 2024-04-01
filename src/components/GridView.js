@@ -10,13 +10,13 @@ export default function GridView() {
         {filteredItems &&
           filteredItems.map((ele) => {
             return (
-              <NavLink to={`/products/${ele.id}`}>
-                <div key={ele.id}>
+              <NavLink to={`/products/${ele._id}`}>
+                <div key={ele._id}>
                   <div className="single-product-box">
                     <div>
                       <img
                         className="img-box"
-                        src={ele.image}
+                        src={ele.image[0].url}
                         alt="Image"
                       />
                     </div>
