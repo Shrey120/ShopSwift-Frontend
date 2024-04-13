@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 
 export default function ListView() {
   const { filteredItems, formatCurrency } = useAppContext();
-  console.log(filteredItems);
+
   return (
     <>
       <div className="list-main-product-box ">

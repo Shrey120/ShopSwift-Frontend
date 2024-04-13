@@ -331,6 +331,7 @@ button {
     border-radius: 10px;
     text-decoration: none;
     text-transform: capitalize;
+    margin-bottom: 15px;
 }
 
 footer {
@@ -446,10 +447,15 @@ input {
 .card__content input {
     width: 100%;
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 10px;
     border: 1px solid lightgrey;
     margin: 0.5rem 0px;
     outline: none;
+}
+
+.card__content textarea {
+    padding: 10px;
+    border-radius: 10px;
 }
 
 .card__content label {
@@ -816,6 +822,29 @@ a {
     text-transform: uppercase;
 }
 
+.away {
+    display: flex;
+    min-width: 580px;
+    height: 30px;
+    justify-content: space-between;
+}
+
+.cancel-order {
+    font-weight: 900;
+    color: azure;
+    background-color: rgb(83, 82, 82);
+    padding: 15px;
+    border-radius: 10px;
+    text-decoration: none;
+    text-transform: capitalize;
+    margin-bottom: 15px;
+}
+
+.cancel-order-btn {
+    font-size: 20px;
+    margin: 0px 10px -5px 0px;
+}
+
 .img-box {
     border-radius: 5px;
     max-width: 90%;
@@ -832,7 +861,6 @@ a {
 }
 
 .list-single-product-box {
-    cursor: pointer;
     background-color: whitesmoke;
     border-radius: 10px;
     padding: 20px;
@@ -842,7 +870,6 @@ a {
 .name-price-description-box {
     color: black;
     margin: 0 40px;
-    padding-top: 10px;
     font-weight: bolder;
     text-transform: capitalize;
 }
@@ -1080,36 +1107,44 @@ hr {
 /* Admin pages */
 
 .admin-main-page {
-    display: flex;
-    flex-direction: column;
-    gap: 50px;
-    margin: 50px 100px 0 100px;
+    display: grid;
+    grid-template-columns: 1fr 6fr;
 }
 
-
 .admin-pages-list {
-    background-color: whitesmoke;
-    border-radius: 10px;
+    background-color: rgb(57, 57, 57);
+    height: 100vh;
     display: flex;
+    flex-direction: column;
 }
 
 .admin-pages {
     font-size: x-large;
     display: flex;
-    margin: 20px 70px;
-    color: black;
+    margin: 10px;
+    color: whitesmoke;
     font-weight: 900;
 }
 
-
 .admin-pages-icon {
-    color: rgb(151, 149, 149);
+    color: rgb(255, 255, 255);
+}
+
+.admin-pages-heading {
+    font-weight: 900;
+    text-decoration: underline;
+    text-align: center;
+    font-size: xxx-large;
+    margin: 50px;
 }
 
 .scrollable {
-    height: 600px;
-    margin: 0 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 700px;
     overflow: hidden;
+    margin: 0px 100px;
     border-radius: 15px;
 }
 
@@ -1126,22 +1161,22 @@ hr {
     overflow-y: auto;
 }
 
-thead th {
-    position: sticky;
-    top: 0;
-}
+
 
 .user-data {
     background-color: whitesmoke;
-    width: 100%;
 }
 
 .bold {
+    position: sticky;
+    top: 0;
+    width: 350px;
     font-size: larger;
     font-weight: 900;
     background-color: rgb(0, 0, 0);
     color: whitesmoke;
     padding: 10px;
+    border-radius: 3px;
 }
 
 .style-admin {
@@ -1176,9 +1211,25 @@ tbody tr:nth-child(even) {
 
 .update-page {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    height: 100%;
 }
+
+.product-update {
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.update-page-grid {
+    display: grid;
+    gap: 50px;
+    grid-template-columns: 1fr 1fr;
+}
+
 
 /* Admin product */
 
@@ -1186,4 +1237,128 @@ tbody tr:nth-child(even) {
     width: 4rem;
     height: 4rem;
     border-radius: 100%;
+}
+
+/* Admin update */
+.pages-heading {
+    font-weight: 900;
+    text-decoration: underline;
+    text-align: center;
+    font-size: xx-large;
+    margin: 50px;
+}
+
+.line-display {
+    display: flex;
+    justify-content: space-between;
+}
+
+.line-display input {
+    width: 280px;
+
+}
+
+.product-update label {
+    font-weight: 900;
+    font-size: large;
+}
+
+.product-desc {
+    height: 120px;
+    width: 100%;
+}
+
+.width {
+    width: 100px;
+}
+
+.edit-btn {
+    font-weight: 900;
+    color: black;
+    background-color: transparent;
+    font-size: 25px;
+    border: 0px;
+}
+
+.value {
+    min-width: 140px;
+    border-radius: 20px;
+    padding: 10px 20px;
+}
+
+#status {
+    padding: 10px;
+    background-color: aliceblue;
+    color: black;
+    border-radius: 20px;
+}
+
+/* Dashboard */
+
+.dashboard-flex {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.dash {
+    height: 250px;
+    width: 23%;
+    padding: 30px;
+    margin: 30px 0px;
+    box-shadow: 5px 5px 15px #2c2b2b86;
+    border-radius: 10px;
+}
+
+.dash-users {
+    background-color: rgb(255, 175, 0);
+}
+
+.dash-products {
+    background-color: rgb(33, 150, 243);
+}
+
+.dash-orders {
+    background-color: rgb(24, 217, 149);
+}
+
+.dash-sales {
+    background-color: rgb(136, 99, 225);
+}
+
+.dash-flex {
+    display: flex;
+    justify-content: space-between;
+}
+
+.dash-num {
+    margin-top: 5px;
+    color: white;
+}
+
+
+.dash-icon {
+    background-color: white;
+    padding: 5px;
+    border-radius: 20%;
+}
+
+.dash-stats {
+    overflow-y: auto;
+    background-color: white;
+    height: 600px;
+    width: 47%;
+    padding: 30px;
+    margin: 15px 0px;
+    box-shadow: 5px 5px 15px #2c2b2b86;
+    border-radius: 10px;
+}
+
+.list-img-dash {
+    border-radius: 5px;
+    max-width: 100px;
+    height: 60px;
+}
+
+.dash-img {
+    margin-left: -18px;
 }

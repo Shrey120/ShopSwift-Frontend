@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useAppContext } from "../context/AppContext";
-import { useParams } from "react-router-dom";
 
-function AdminUpdateProduct() {
-  const { user, showAlert, baseUrl, loading, updateProductHandler } =
-    useAppContext();
+function AdminNew() {
+  const { loading, addProduct } = useAppContext();
 
   const [body, setBody] = useState({
     name: "",
@@ -19,27 +17,6 @@ function AdminUpdateProduct() {
     stars: 0,
     image: [{ url: "" }, { url: "" }, { url: "" }, { url: "" }],
   });
-  const params = useParams();
-  const singleProductUrl = baseUrl + "admin/products/";
-  const getSingleProductData = async () => {
-    try {
-      const response = await fetch(`${singleProductUrl}${params.id}`, {
-        method: "GET",
-        headers: {
-          Authorization: user.token,
-        },
-      });
-      const data = await response.json();
-
-      setBody(data.data);
-    } catch (error) {
-      showAlert(error);
-    }
-  };
-
-  useEffect(() => {
-    getSingleProductData();
-  }, []);
 
   // Changing fields
   const changeHandler = (e) => {
@@ -50,6 +27,7 @@ function AdminUpdateProduct() {
       [name]: value,
     });
   };
+
   // image change
   const imageChangeHandler = (value, index) => {
     const updatedImage = [...body.image];
@@ -61,6 +39,7 @@ function AdminUpdateProduct() {
       image: updatedImage,
     });
   };
+
   // color change
   const handleColorChange = (index, value) => {
     const updatedColors = [...body.colors];
@@ -81,12 +60,12 @@ function AdminUpdateProduct() {
   return (
     <div className="update-page">
       <div>
-        <h1 className="pages-heading">Update Product</h1>
+        <h1 className="pages-heading">Add Product Details</h1>
       </div>
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          updateProductHandler(params.id, body);
+          addProduct(body);
         }}>
         <div className="update-page-grid ">
           <div className="card__content product-update">
@@ -245,4 +224,4 @@ function AdminUpdateProduct() {
   );
 }
 
-export default AdminUpdateProduct;
+export default AdminNew;

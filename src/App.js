@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Routes, Route, useNavigate, Outlet } from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
@@ -23,10 +23,12 @@ import Orders from "./pages/Orders";
 import UserDetails from "./components/UserDetails";
 import Admin from "./pages/Admin";
 import AdminUsers from "./components/AdminUsers";
-import { AdminServices } from "./components/AdminServices";
+import AdminOrders from "./components/AdminOrders";
 import AdminUpdate from "./components/AdminUpdate";
 import AdminProduct from "./components/AdminProduct";
 import AdminUpdateProduct from "./components/AdminUpdateProduct";
+import AdminNew from "./components/AdminNew";
+import AdminDashboard from "./components/AdminDashboard";
 
 const getLocalCartData = () => {
   let localCartData = localStorage.getItem("CartItems");
@@ -54,7 +56,7 @@ function App() {
   const [user, setUser] = useState(getLocalUser);
   const [loading, setLoading] = useState(false);
   // product display
-  const [product, setProduct] = useState(null);
+  const [product, setProduct] = useState([]);
 
   // No. of cart Items
   const [cartValue, setCartValue] = useState(1);
@@ -80,6 +82,23 @@ function App() {
   const [orders, setOrders] = useState([]);
   // Admin
   const [allUsers, setAllUsers] = useState([]);
+  const [allOrders, setAllOrders] = useState([]);
+  // Laoctaion and time
+  const [city, setCity] = useState("");
+  const location = useLocation();
+
+  const isAdminRoute = location.pathname.startsWith("/admin");
+  // Getting Location
+  useEffect(() => {
+    navigator.geolocation &&
+      navigator.geolocation.getCurrentPosition((pos) => {
+        const { latitude, longitude } = pos.coords;
+        const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`;
+        fetch(url)
+          .then((res) => res.json())
+          .then((data) => setCity(data.address.city));
+      });
+  }, []);
 
   useEffect(() => {
     localStorage.setItem("CartItems", JSON.stringify(cartItems));
@@ -191,6 +210,38 @@ function App() {
         setMaxPrice(0);
       });
   };
+  const currentDate = new Date();
+  const month = String(currentDate.getMonth() + 1).padStart(2, "0"); // Adding 1 because January is 0
+  const day = String(currentDate.getDate()).padStart(2, "0");
+  const year = currentDate.getFullYear();
+
+  const formattedDate = `${day}-${month}-${year}`;
+  if (!city) {
+    setCity("India");
+  }
+  // AddUserOrder
+  const addingOrder = async (sessionId, name, email) => {
+    const response = await fetch(baseUrl + "storeOrders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: user.token,
+      },
+      body: JSON.stringify({
+        cartItems,
+        sessionId,
+        name,
+        email,
+        city,
+        formattedDate,
+      }),
+    });
+
+    const session = await response.json();
+    if (session.success) {
+      showAlert(session.message, false);
+    }
+  };
 
   // Stripe Payment
   const onCheckOut = async (e) => {
@@ -212,30 +263,13 @@ function App() {
       const result = stripe.redirectToCheckout({
         sessionId: session.id,
       });
-      addingOrder(session.id);
+      addingOrder(session.id, user.name, user.userData.email);
 
       if (result.error) {
         console.log(result.error);
       }
     } catch (e) {
       console.log(e);
-    }
-  };
-
-  // AddUserOrder
-  const addingOrder = async (sessionId) => {
-    const response = await fetch(baseUrl + "storeOrders", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: user.token,
-      },
-      body: JSON.stringify({ cartItems, sessionId }),
-    });
-
-    const session = await response.json();
-    if (session.success) {
-      showAlert(session.message, false);
     }
   };
 
@@ -259,6 +293,28 @@ function App() {
       .catch(() => {
         showAlert("Failed to fetch transactions ", true);
       });
+  };
+
+  // Cancel Order
+  const deleteOrderUrl = baseUrl + "orders/delete";
+  const cancelOrder = async (id) => {
+    try {
+      const response = await fetch(`${deleteOrderUrl}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: user.token,
+        },
+        body: JSON.stringify({ id }),
+      });
+      const data = await response.json();
+      if (data.success) {
+        showAlert(data.message, false);
+        fetchOrders();
+      }
+    } catch (error) {
+      showAlert(error);
+    }
   };
 
   // Admin route
@@ -344,6 +400,7 @@ function App() {
       showAlert(error);
     }
   };
+
   // Update Product
   const updateProductUrl = baseUrl + "admin/products/update/";
   const updateProductHandler = async (id, body) => {
@@ -361,9 +418,96 @@ function App() {
         showAlert(data.message, false);
       }
     } catch (error) {
-      showAlert(error);
+      showAlert(error, true);
     }
   };
+
+  // Add Product
+  const addProduct = async (body) => {
+    try {
+      const response = await fetch(baseUrl + "admin/products/new", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: user.token,
+        },
+        body: JSON.stringify(body),
+      });
+      const data = await response.json();
+      if (data.success) {
+        showAlert(data.message, false);
+      }
+    } catch (error) {
+      showAlert(error, true);
+    }
+  };
+
+  // GetOrders
+
+  const updateOrderUrl = baseUrl + "admin/orders/";
+  const getOrders = async () => {
+    try {
+      const response = await fetch(baseUrl + "admin/orders", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: user.token,
+        },
+      });
+      const data = await response.json();
+      if (data.success) {
+        setAllOrders(data.orders);
+      }
+    } catch (error) {
+      showAlert(error, true);
+    }
+  };
+
+  // UpdateOrderStatus
+  const updateOrderStatus = async (orderStatus, id) => {
+    try {
+      const response = await fetch(`${updateOrderUrl}${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: user.token,
+        },
+        body: JSON.stringify(orderStatus),
+      });
+      const data = await response.json();
+      if (data.success) {
+        showAlert(data.message, false);
+        return true; // Indicate that the update was successful
+      }
+    } catch (error) {
+      showAlert(error, true);
+    }
+  };
+
+  const bgColor = (status) => {
+    if (status === "Delivered") {
+      return {
+        backgroundColor: "lightgreen",
+        color: "darkgreen",
+      };
+    } else if (status === "Dispatched") {
+      return {
+        backgroundColor: "rgb(255, 255, 153)",
+        color: "black",
+      };
+    } else if (status === "Accepted") {
+      return {
+        backgroundColor: "lightblue",
+        color: "darkblue",
+      };
+    } else if (status === "Ordered") {
+      return {
+        backgroundColor: "lightcoral",
+        color: "darkred",
+      };
+    }
+  };
+
   // UserChange
   const userSetter = () => {
     setUser(null);
@@ -537,7 +681,7 @@ function App() {
       setCartItems([
         ...cartItems,
         {
-          id: curElem.id + colorOfItem,
+          id: curElem._id + colorOfItem,
           name: curElem.name,
           quantity: quantity,
           color: colorOfItem,
@@ -697,6 +841,12 @@ function App() {
         updateHandler,
         deleteProductHandler,
         updateProductHandler,
+        addProduct,
+        getOrders,
+        allOrders,
+        updateOrderStatus,
+        bgColor,
+        cancelOrder,
       }}>
       <ToastContainer />
       <Header />
@@ -766,6 +916,14 @@ function App() {
             </AdminRoute>
           }>
           <Route
+            path="dashboard"
+            element={
+              <AdminRoute>
+                <AdminDashboard />
+              </AdminRoute>
+            }
+          />
+          <Route
             path="users"
             element={
               <AdminRoute>
@@ -798,16 +956,20 @@ function App() {
             }
           />
           <Route
-            path="services"
+            path="orders"
             element={
               <AdminRoute>
-                <AdminServices />
+                <AdminOrders />
               </AdminRoute>
             }
           />
+          <Route
+            path="new"
+            element={<AdminNew />}
+          />
         </Route>
       </Routes>
-      <Footer />
+      {!isAdminRoute && <Footer />}
     </AppContext.Provider>
   );
 }

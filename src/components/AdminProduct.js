@@ -11,7 +11,9 @@ function AdminProduct() {
   }, []);
   return (
     <>
-      {" "}
+      <div>
+        <h1 className="admin-pages-heading">All Products</h1>
+      </div>
       <div className="scrollable">
         <table className="user-data">
           <thead>

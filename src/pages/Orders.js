@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
 import { useAppContext } from "../context/AppContext";
 import { NavLink } from "react-router-dom";
+import { TbShoppingCartCancel } from "react-icons/tb";
 export default function Orders() {
-  const { orders, formatCurrency, fetchOrders } = useAppContext();
+  const { orders, formatCurrency, fetchOrders, bgColor, cancelOrder } =
+    useAppContext();
   useEffect(() => {
     fetchOrders();
   }, []);
@@ -20,17 +22,17 @@ export default function Orders() {
         orders.map((curElem) => {
           return curElem.cartItems.map((ele) => {
             return (
-              <NavLink to={`/products/${ele.id}`}>
-                <div key={ele.id}>
-                  <div className="list-single-product-box">
-                    <div>
-                      <img
-                        className="list-img-box-order"
-                        src={ele.image.url}
-                        alt="Image"
-                      />
-                    </div>
-                    <div className="name-price-description-box">
+              <div key={ele.id}>
+                <div className="list-single-product-box">
+                  <div>
+                    <img
+                      className="list-img-box-order"
+                      src={ele.image.url}
+                      alt="Image"
+                    />
+                  </div>
+                  <div className="name-price-description-box">
+                    <div className="away">
                       <h2 style={{ marginBottom: "10px" }}>
                         {ele.name}
                         <button
@@ -40,26 +42,41 @@ export default function Orders() {
                           }}
                         />
                       </h2>
-
-                      <div>{ele.description}</div>
-
-                      <div>Quantity Ordered : {ele.quantity}</div>
-                      <div className="currency">
-                        Unit Item Price : {formatCurrency(ele.price)}
+                      <div>
+                        <span
+                          className="value"
+                          style={bgColor(curElem.status)}>
+                          {curElem.status}
+                        </span>
                       </div>
-                      <div className="currency">
-                        Total Price : {formatCurrency(ele.price * ele.quantity)}
-                      </div>
-                      <NavLink to={`/products/${ele.id}`}>
+                    </div>
+
+                    <div>{ele.description}</div>
+
+                    <div>Quantity Ordered : {ele.quantity}</div>
+                    <div className="currency">
+                      Unit Item Price : {formatCurrency(ele.price)}
+                    </div>
+                    <div className="currency">
+                      Total Price : {formatCurrency(ele.price * ele.quantity)}
+                    </div>
+                    <div className="away">
+                      <NavLink to={`/products/${ele.id.slice(0, 25)}`}>
                         <button className="hireme-btn">Buy Again</button>
                       </NavLink>
+                      <button
+                        className="cancel-order"
+                        onClick={() => cancelOrder(ele.id)}>
+                        <TbShoppingCartCancel className="cancel-order-btn" />
+                        Cancel Order
+                      </button>
                     </div>
                   </div>
                 </div>
                 <br />
                 <hr />
                 <br />
-              </NavLink>
+              </div>
             );
           });
         })}

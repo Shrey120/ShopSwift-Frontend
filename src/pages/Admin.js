@@ -1,14 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
-import { FaUsers, FaShippingFast, FaCartArrowDown } from "react-icons/fa";
+import { FaUsers, FaShippingFast, FaCartPlus } from "react-icons/fa";
+import { MdInventory } from "react-icons/md";
+import { MdDashboard } from "react-icons/md";
+
+import AdminDashboard from "../components/AdminDashboard";
 
 function Admin() {
+  const [d, setD] = useState(0);
+  const changeD = () => {
+    setD(1);
+  };
   return (
     <>
       <div className="admin-main-page">
         <div className="admin-pages-list">
           <NavLink
+            to="/admin/dashboard"
+            className="admin-pages">
+            <p className="admin-pages-icon">
+              <MdDashboard />
+            </p>
+            &nbsp; Dashboard
+          </NavLink>
+          <NavLink
             to="/admin/users"
+            onClick={changeD}
             className="admin-pages">
             <p className="admin-pages-icon">
               <FaUsers />
@@ -16,7 +33,8 @@ function Admin() {
             &nbsp; Users
           </NavLink>
           <NavLink
-            to="/admin/services"
+            to="/admin/orders"
+            onClick={changeD}
             className="admin-pages">
             <p className="admin-pages-icon">
               <FaShippingFast />
@@ -25,16 +43,24 @@ function Admin() {
           </NavLink>
           <NavLink
             to="/admin/products"
+            onClick={changeD}
             className="admin-pages">
             <p className="admin-pages-icon">
-              <FaCartArrowDown />
+              <MdInventory />
             </p>
-            &nbsp; Products
+            &nbsp; Inventory
+          </NavLink>
+          <NavLink
+            to="/admin/new"
+            onClick={changeD}
+            className="admin-pages">
+            <p className="admin-pages-icon">
+              <FaCartPlus />
+            </p>
+            &nbsp; Add Product
           </NavLink>
         </div>
-        <div>
-          <Outlet />
-        </div>
+        <div>{d === 0 ? <AdminDashboard /> : <Outlet />}</div>
       </div>
     </>
   );
