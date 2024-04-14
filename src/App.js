@@ -51,7 +51,7 @@ function App() {
   // const [state, dispatch] = useReducer(reducerFun,initialState);
   const navigator = useNavigate();
 
-  const baseUrl = "http://localhost:4000/";
+  const baseUrl = "https://shopswift-backend.onrender.com/";
   // autherization
   const [user, setUser] = useState(getLocalUser);
   const [loading, setLoading] = useState(false);
