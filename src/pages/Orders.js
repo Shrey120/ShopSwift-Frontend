@@ -32,7 +32,7 @@ export default function Orders() {
                     />
                   </div>
                   <div className="name-price-description-box">
-                    <div className="away">
+                    <div className="away-1">
                       <h2 style={{ marginBottom: "10px" }}>
                         {ele.name}
                         <button
@@ -60,11 +60,16 @@ export default function Orders() {
                     <div className="currency">
                       Total Price : {formatCurrency(ele.price * ele.quantity)}
                     </div>
-                    <div className="away">
+                    <div className="away-1">
                       <NavLink to={`/products/${ele.id.slice(0, 25)}`}>
-                        <button className="hireme-btn">Buy Again</button>
+                        <button
+                          style={{ marginTop: "20px" }}
+                          className="cancel-order">
+                          Buy Again
+                        </button>
                       </NavLink>
                       <button
+                        style={{ marginTop: "20px" }}
                         className="cancel-order"
                         onClick={() => cancelOrder(ele.id)}>
                         <TbShoppingCartCancel className="cancel-order-btn" />
