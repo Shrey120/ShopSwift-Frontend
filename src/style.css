@@ -837,7 +837,7 @@ a {
     border-radius: 10px;
     text-decoration: none;
     text-transform: capitalize;
-    /* margin-bottom: 15px; */
+    margin-bottom: 15px;
 }
 
 .cancel-order-btn {

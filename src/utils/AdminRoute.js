@@ -8,11 +8,20 @@ export default function ProtectedRoute({ children }) {
 
   if (user.userData.isAdmin) {
     return children;
+  } else if (!user) {
+    showAlert("Please Login First", true);
+    return (
+      <Navigate
+        to='/login'
+        state={{ from: location }}
+        replace
+      />
+    );
   } else {
     showAlert("Only Admin Can Access!!", true);
     return (
       <Navigate
-        to="/"
+        to='/'
         state={{ from: location }}
         replace
       />
