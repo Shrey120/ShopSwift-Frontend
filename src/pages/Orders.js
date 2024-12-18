@@ -9,8 +9,6 @@ export default function Orders() {
     fetchOrders();
   }, []);
 
-  console.log(orders);
-
   return (
     <div>
       <h1
@@ -71,13 +69,15 @@ export default function Orders() {
                           Buy Again
                         </button>
                       </NavLink>
-                      <button
-                        style={{ marginTop: "20px" }}
-                        className='cancel-order'
-                        onClick={() => cancelOrder(ele.id)}>
-                        <TbShoppingCartCancel className='cancel-order-btn' />
-                        Cancel Order
-                      </button>
+                      {curElem.status !== "Delivered" && (
+                        <button
+                          style={{ marginTop: "20px" }}
+                          className='cancel-order'
+                          onClick={() => cancelOrder(ele.id)}>
+                          <TbShoppingCartCancel className='cancel-order-btn' />
+                          Cancel Order
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>
