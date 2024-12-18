@@ -9,13 +9,13 @@
 }
 
 main {
-    max-width:max-content;
+    max-width: max-content;
     margin: 0 auto;
-  }
+}
 
 html {
     font-size: calc(60% + 0.8vmin);
-  }
+}
 
 body {
     background-color: rgb(255, 255, 255);
@@ -107,10 +107,11 @@ button {
     text-decoration: none;
 }
 
-.right-header{
+.right-header {
     display: flex;
-    
+
 }
+
 .login {
     /* position: absolute;
     right: 0;
@@ -340,6 +341,13 @@ button {
     text-decoration: none;
     text-transform: capitalize;
     margin-bottom: 15px;
+}
+
+.hireme-btn:hover {
+    background-color: transparent;
+    color: black;
+    border: solid black 2px;
+    scale: 1.05;
 }
 
 footer {
