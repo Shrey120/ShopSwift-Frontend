@@ -17,13 +17,13 @@ export default function GridView() {
                       <img
                         className='img-box'
                         src={ele.image[0].url}
-                        alt='Image'
+                        alt='img'
                       />
                     </div>
                     <div className='name-price-box'>
-                      <div>{ele.name.slice(0, 20)} ....</div>
+                      <div>{ele.name.slice(0, 7)}..</div>
                       <div className='currency'>
-                        {formatCurrency(ele.price * 100)}
+                        {formatCurrency(ele.price)}
                       </div>
                     </div>
                   </div>

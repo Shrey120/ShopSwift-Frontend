@@ -518,7 +518,7 @@ function App() {
       style: "currency",
       currency: "INR",
       maximumFractionDigits: 2,
-    }).format(price / 100);
+    }).format(price);
   };
 
   // cart adding and removing
@@ -852,19 +852,19 @@ function App() {
       <Header />
       <Routes>
         <Route
-          path="/"
+          path='/'
           element={<Home />}
         />
         <Route
-          path="/about"
+          path='/about'
           element={<About />}
         />
         <Route
-          path="/contact"
+          path='/contact'
           element={<Contact />}
         />
         <Route
-          path="/products/:id"
+          path='/products/:id'
           element={
             <ProtectedRoute>
               <SingleProduct />
@@ -872,20 +872,20 @@ function App() {
           }
         />
         <Route
-          path="/products"
+          path='/products'
           element={<Product />}
         />
 
         <Route
-          path="/login"
+          path='/login'
           element={<Login />}
         />
         <Route
-          path="*"
+          path='*'
           element={<ErrorPage />}
         />
         <Route
-          path="/cart"
+          path='/cart'
           element={
             <ProtectedRoute>
               <CartItems />
@@ -893,11 +893,11 @@ function App() {
           }
         />
         <Route
-          path="/userdetails"
+          path='/userdetails'
           element={<UserDetails />}
         />
         <Route
-          path="/orders"
+          path='/orders'
           element={
             <ProtectedRoute>
               <Orders />
@@ -905,18 +905,18 @@ function App() {
           }
         />
         <Route
-          path="/signup"
+          path='/signup'
           element={<Signup />}
         />
         <Route
-          path="/admin"
+          path='/admin'
           element={
             <AdminRoute>
               <Admin />
             </AdminRoute>
           }>
           <Route
-            path="dashboard"
+            path='dashboard'
             element={
               <AdminRoute>
                 <AdminDashboard />
@@ -924,7 +924,7 @@ function App() {
             }
           />
           <Route
-            path="users"
+            path='users'
             element={
               <AdminRoute>
                 <AdminUsers />
@@ -932,7 +932,7 @@ function App() {
             }
           />
           <Route
-            path="users/updateUser/:id"
+            path='users/updateUser/:id'
             element={
               <AdminRoute>
                 <AdminUpdate />
@@ -940,7 +940,7 @@ function App() {
             }
           />
           <Route
-            path="products"
+            path='products'
             element={
               <AdminRoute>
                 <AdminProduct />
@@ -948,7 +948,7 @@ function App() {
             }
           />
           <Route
-            path="products/update/:id"
+            path='products/update/:id'
             element={
               <AdminRoute>
                 <AdminUpdateProduct />
@@ -956,7 +956,7 @@ function App() {
             }
           />
           <Route
-            path="orders"
+            path='orders'
             element={
               <AdminRoute>
                 <AdminOrders />
@@ -964,7 +964,7 @@ function App() {
             }
           />
           <Route
-            path="new"
+            path='new'
             element={<AdminNew />}
           />
         </Route>

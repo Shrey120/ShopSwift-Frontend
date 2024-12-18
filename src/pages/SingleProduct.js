@@ -52,10 +52,10 @@ function SingleProduct() {
                   </div>
                   <div className='product-mrp-cost'>
                     <h3 class='currency'>
-                      MRP: {formatCurrency(ele.price * 100 + ele.price * 30)}
+                      MRP: {formatCurrency(ele.price + ele.price * 30)}
                     </h3>
                     <h4 class='currency'>
-                      Deal of the day: {formatCurrency(ele.price * 100)}
+                      Deal of the day: {formatCurrency(ele.price)}
                     </h4>
                   </div>
                   <div className='product-description'>{ele.description}</div>

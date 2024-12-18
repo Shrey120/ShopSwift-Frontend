@@ -5,23 +5,23 @@ import { FaDiscord, FaInstagram, FaYoutube } from "react-icons/fa";
 export default function Footer() {
   return (
     <>
-      <section className="contact-short">
-        <div className="footer-1">
+      <section className='contact-short'>
+        <div className='footer-1'>
           <div>
             <h3>Ready to get started?</h3>
             <h3>Talk to us today</h3>
           </div>
 
           <NavLink
-            className="hireme-btn"
-            to="/contact">
+            className='hireme-btn'
+            to='/contact'>
             Get Started
           </NavLink>
         </div>
       </section>
 
       <footer>
-        <div className="footer-mid">
+        <div className='footer-mid'>
           <div>
             <h3>Shop Swift</h3>
             <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. </p>
@@ -29,48 +29,48 @@ export default function Footer() {
           <div>
             <h3>Subscribe to get important updates</h3>
             <form
-              className="footer-form-subscribe"
-              action="#">
+              className='footer-form-subscribe'
+              action='#'>
               <input
-                type="email"
-                name="email"
-                placeholder="YOUR E-MAIL"
+                type='email'
+                name='email'
+                placeholder='YOUR E-MAIL'
               />
 
               <input
-                type="submit"
-                value="Subscribe"
-                className="footer-submit-btn"
+                type='submit'
+                value='Subscribe'
+                className='footer-submit-btn'
               />
             </form>
           </div>
-          <div>
+          <div className='footer-social-1'>
             <h3>Follow Us</h3>
-            <div className="footer-social--icons">
+            <div className='footer-social--icons'>
               <div>
                 <a
-                  href="https://www.discord.com"
-                  target="_blank">
-                  <FaDiscord className="icons" />
+                  href='https://www.discord.com'
+                  target='_blank'>
+                  <FaDiscord className='icons' />
                 </a>
               </div>
               <div>
                 <a
-                  href="https://www.instagram.com"
-                  target="_blank">
-                  <FaInstagram className="icons" />
+                  href='https://www.instagram.com'
+                  target='_blank'>
+                  <FaInstagram className='icons' />
                 </a>
               </div>
               <div>
                 <a
-                  href="https://www.youtube.com"
-                  target="_blank">
-                  <FaYoutube className="icons" />
+                  href='https://www.youtube.com'
+                  target='_blank'>
+                  <FaYoutube className='icons' />
                 </a>
               </div>
             </div>
           </div>
-          <div className="footer-contact">
+          <div className='footer-contact footer-social-1'>
             <h3>Call Us</h3>
             <p>+91 12345678978</p>
           </div>
@@ -78,8 +78,8 @@ export default function Footer() {
 
         <div>
           <hr />
-          <div className="footer-bottom--section">
-            <p class="company-rights">
+          <div className='footer-bottom--section'>
+            <p class='company-rights'>
               @{new Date().getFullYear()} SwopSwift. All Rights Reserved
             </p>
             <div>

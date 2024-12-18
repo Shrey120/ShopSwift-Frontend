@@ -14,68 +14,65 @@ export default function Header() {
   };
   return (
     <>
-      <nav className="header-main">
+      <nav className='header-main'>
         <div
-          className="website-name"
+          className='website-name'
           onClick={() => handleClick()}>
-          <p class="first">Shop</p>
-          <p class="second">Swift</p>
+          <p class='first'>Shop</p>
+          <p class='second'>Swift</p>
         </div>
-        <div className="header-pages">
+        <div className='header-pages'>
           <NavLink
-            to="/"
-            className="page">
+            to='/'
+            className='page'>
             Home
           </NavLink>
           <NavLink
-            to="/products"
+            to='/products'
             onClick={showProducts}
-            className="page">
+            className='page'>
             Products
           </NavLink>
           <NavLink
-            to="/about"
-            className="page">
+            to='/about'
+            className='page'>
             About
           </NavLink>
           <NavLink
-            to="/contact"
-            className="page">
+            to='/contact'
+            className='page'>
             Contact
           </NavLink>
           <NavLink
-            to="/orders"
+            to='/orders'
             onClick={fetchOrders}
-            className="page">
+            className='page'>
             Orders
           </NavLink>
-          </div>
-          
-          
-          <div className="right-header">
-            {user ? (
+        </div>
+
+        <div className='right-header'>
+          {user ? (
             <NavLink
-              to="/userdetails"
-              className="page login">
-              <FaUser className="login-icon" />
+              to='/userdetails'
+              className='page '>
+              <FaUser className='login-icon' />
               {user.name.slice(0, 5)}..
             </NavLink>
-            ) : (
+          ) : (
             <NavLink
-              to="/login"
-              className="page login">
-              <FaUser className="login-icon" />
+              to='/login'
+              className='page '>
+              <FaUser className='login-icon' />
               Login
             </NavLink>
-            )}
-            <NavLink
-              to="/cart"
-              className="icon">
-              <div className="cart-total-items">{cartQuantity}</div>
-              <FiShoppingBag />
-            </NavLink>
-          </div>
-        </nav>
+          )}
+          <NavLink to='/cart'>
+            <div className='cart-total-items'>{cartQuantity}</div>
+            <FiShoppingBag className='cart-bag' />
+          </NavLink>
+        </div>
+      </nav>
     </>
   );
 }

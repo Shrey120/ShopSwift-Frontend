@@ -24,7 +24,7 @@ export default function ListView() {
                     <div className='name-price-description-box'>
                       <div>{ele.name}</div>
                       <div className='currency'>
-                        {formatCurrency(ele.price * 100)}
+                        {formatCurrency(ele.price)}
                       </div>
                       <div>{ele.description.slice(0, 150)} ....</div>
                       <NavLink to={`/products/${ele._id}`}>

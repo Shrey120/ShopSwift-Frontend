@@ -78,49 +78,47 @@ button {
     text-decoration: none;
     padding: 0 1rem;
     font-size: 1.2rem;
+    display: flex;
 }
 
 .active {
     opacity: 0.7;
 }
 
-.icon {
+.cart-bag {
     color: white;
-    /* position: absolute;
-    right: 0;
-    height: 6rem; 
-     width: 60px;
-    text-align: center;
-    transform: translate(-45%, 32%);
-    font-size: 3.5rem;  */
+    font-size: x-large;
 }
 
+
+
 .cart-total-items {
+    color: white;
     position: absolute;
     background-color: rgb(123, 121, 121);
     border-radius: 50%;
-    height: 27px;
-    width: 27px;
-    line-height: 23px;
-    font-size: 20px;
-    transform: translate(115%, -30%);
+    height: 1rem;
+    width: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.6rem;
+    transform: translate(70%, -30%);
     text-decoration: none;
+
 }
 
 .right-header {
+    margin-top: 0.5rem;
     display: flex;
 
 }
 
-.login {
-    /* position: absolute;
-    right: 0;
-    padding: 10px;
-    transform: translate(-70%, 13%); */
-}
+
 
 .login-icon {
-    /* transform: translate(-30%, 15%); */
+    margin-right: 0.3rem;
+    font-size: large;
 }
 
 
@@ -131,8 +129,13 @@ button {
 .header {
     display: flex;
     justify-content: center;
-    margin: 100px;
-    padding: 50px;
+    margin: 8rem;
+    padding: 3rem;
+}
+
+.font-head {
+    font-size: 3.5rem;
+    font-weight: 900;
 }
 
 .text-home {
@@ -149,10 +152,17 @@ button {
 }
 
 .main-img {
-    height: 500px;
-    width: 700px;
+    height: 35rem;
+    width: 45rem;
     box-shadow: 10px -10px 10px rgb(124, 120, 120);
     border-radius: 2%;
+}
+
+@media (max-width: 1024px) {
+    .main-img {
+        height: 22rem;
+        width: 25rem;
+    }
 }
 
 /* About Us */
@@ -320,7 +330,7 @@ button {
 /* Footer */
 
 .contact-short {
-    margin: 150px 300px -75px 300px;
+    margin: 10rem 10rem -3rem 10rem;
     position: relative;
 }
 
@@ -328,8 +338,8 @@ button {
     display: flex;
     justify-content: space-between;
     background-color: whitesmoke;
-    padding: 50px;
-    border-radius: 10px;
+    padding: 2rem 2rem 1rem 2rem;
+    border-radius: 1rem;
 }
 
 .hireme-btn {
@@ -356,9 +366,13 @@ footer {
 }
 
 .footer-mid {
-    display: flex;
-    justify-content: space-between;
-    padding: 150px 200px 100px 300px;
+    display: grid;
+    grid: 1fr 1fr / 1fr 1fr;
+    padding: 5rem;
+}
+
+.footer-social-1 {
+    padding-top: 2rem;
 }
 
 .footer-mid h3 {
@@ -567,31 +581,37 @@ a {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 0 5rem;
 }
 
 .featured-heading {
-    margin-bottom: 40px;
-    position: relative;
-    right: 480px;
+    margin-bottom: 2rem;
 }
 
 .main-product-box-featured {
-
     display: flex;
-    gap: 50px;
-    width: 1300px;
+    gap: 2rem;
+    justify-content: space-between;
+    width: 100%;
     overflow-x: auto;
+}
 
+.single-product-box-featured {
+    background-color: whitesmoke;
+    cursor: pointer;
+    width: 100%;
+    margin: 1rem 6rem 1rem 0;
+    text-align: center;
+    border-radius: 1rem;
+    padding: 1rem 0;
 }
 
 .img-featured {
-    max-width: 90%;
+    width: 100%;
+    border-radius: 5px;
     height: 250px;
 }
 
-.featured {
-    margin: 0 20px;
-}
 
 /* User Details */
 .userdetails {
@@ -832,8 +852,8 @@ a {
     color: black;
     display: flex;
     justify-content: space-between;
-    margin: 0 30px;
-    padding-top: 10px;
+    margin: 0 1rem;
+    padding-top: 1rem;
     font-weight: bolder;
     text-transform: uppercase;
 }
