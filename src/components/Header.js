@@ -49,33 +49,33 @@ export default function Header() {
             className="page">
             Orders
           </NavLink>
-          <NavLink
-            to="/cart"
-            className="icon">
-            <div className="cart-total-items">{cartQuantity}</div>
-            <FiShoppingBag />
-          </NavLink>
-          {user ? (
+          </div>
+          
+          
+          <div className="right-header">
+            {user ? (
             <NavLink
               to="/userdetails"
               className="page login">
               <FaUser className="login-icon" />
               {user.name.slice(0, 5)}..
             </NavLink>
-          ) : (
+            ) : (
             <NavLink
               to="/login"
               className="page login">
               <FaUser className="login-icon" />
               Login
             </NavLink>
-          )}
-        </div>
-        {/* <div className="mobile-navbar">
-          <FiMenu className="responsive--btn" />
-          <RxCross2 className="responsive--btn responsive-cross-btn" />
-        </div> */}
-      </nav>
+            )}
+            <NavLink
+              to="/cart"
+              className="icon">
+              <div className="cart-total-items">{cartQuantity}</div>
+              <FiShoppingBag />
+            </NavLink>
+          </div>
+        </nav>
     </>
   );
 }

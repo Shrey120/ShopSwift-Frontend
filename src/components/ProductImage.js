@@ -9,8 +9,9 @@ const ProductImage = ({ image }) => {
         {image.map((images) => {
           return (
             <img
+              alt='product'
               key={images.id}
-              className="product-image"
+              className='product-image'
               src={images.url}
               onClick={() => setMainImage(images.url)}
             />
@@ -19,7 +20,8 @@ const ProductImage = ({ image }) => {
       </div>
       <div>
         <img
-          className="product-main-img"
+          alt='product'
+          className='product-main-img'
           src={mainImage}
         />
       </div>

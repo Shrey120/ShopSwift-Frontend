@@ -5,13 +5,20 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Raleway', sans-serif;
-
-
+    font-size: 1rem;
 }
+
+main {
+    max-width:max-content;
+    margin: 0 auto;
+  }
+
+html {
+    font-size: calc(60% + 0.8vmin);
+  }
 
 body {
     background-color: rgb(255, 255, 255);
-
 }
 
 button {
@@ -21,34 +28,32 @@ button {
 /* navigation bar */
 
 .header-main {
-    position: relative;
+    /* position: relative; */
     font-weight: 900;
-    font-size: 30px;
     background-color: rgb(15, 15, 15);
     display: flex;
     align-items: center;
-    padding: 10px;
-    justify-content: space-around;
+    padding: 1.5rem;
+    justify-content: space-between;
 }
 
 .website-name {
     color: white;
     display: flex;
-    position: absolute;
-    left: 0;
-    transform: translate(20%);
     cursor: pointer;
 }
 
 .first {
-    padding: 3px;
+    padding: 0.3rem;
     color: white;
+    font-size: 1.2rem;
 }
 
 .second {
     background-color: white;
     color: black;
-    padding: 3px;
+    padding: 0.3rem;
+    font-size: 1.2rem;
 }
 
 .website-name:hover .first {
@@ -63,7 +68,6 @@ button {
     color: white;
 }
 
-
 .header-pages {
     display: flex;
     justify-content: center;
@@ -72,7 +76,8 @@ button {
 .page {
     color: white;
     text-decoration: none;
-    padding: 20px;
+    padding: 0 1rem;
+    font-size: 1.2rem;
 }
 
 .active {
@@ -81,13 +86,13 @@ button {
 
 .icon {
     color: white;
-    position: absolute;
+    /* position: absolute;
     right: 0;
-    height: 60px;
-    width: 60px;
+    height: 6rem; 
+     width: 60px;
     text-align: center;
     transform: translate(-45%, 32%);
-    font-size: 35px;
+    font-size: 3.5rem;  */
 }
 
 .cart-total-items {
@@ -102,16 +107,19 @@ button {
     text-decoration: none;
 }
 
+.right-header{
+    display: flex;
+    
+}
 .login {
-
-    position: absolute;
+    /* position: absolute;
     right: 0;
     padding: 10px;
-    transform: translate(-70%, 13%);
+    transform: translate(-70%, 13%); */
 }
 
 .login-icon {
-    transform: translate(-30%, 15%);
+    /* transform: translate(-30%, 15%); */
 }
 
 
