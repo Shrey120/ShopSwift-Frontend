@@ -23,7 +23,7 @@ export default function GridView() {
                     <div className='name-price-box'>
                       <div>{ele.name.slice(0, 20)} ....</div>
                       <div className='currency'>
-                        {formatCurrency(ele.price)}
+                        {formatCurrency(ele.price * 100)}
                       </div>
                     </div>
                   </div>
